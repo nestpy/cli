@@ -1,4 +1,10 @@
+import os 
 from typer import echo, Option
+
+from nestpy_cli.templates.create_template import create_template
+from nestpy_cli.templates.main_file import main_file
+from nestpy_cli.templates.module_file import module_file
+from nestpy_cli.templates.controller_file import controller_file
 
 
 def new(
@@ -9,7 +15,16 @@ def new(
     package_manager: bool = Option(None, '--package-manager', '-p'),
     collection: bool = Option(None, '--collection', '-c'),
 ):
-    """
-    Shoot the portal gun
-    """
-    echo("Shooting portal gun")
+    base_path = f'./{name}/src'
+
+    # NestPy Structure
+    os.makedirs(base_path)
+    create_template(f'{base_path}/main.py', main_file())
+    create_template(f'{base_path}/app_module.py', module_file('App'))
+    create_template(f'{base_path}/app_controller.py', controller_file('App'))
+
+    # Git Structure
+
+    # Package Manager
+
+    # Install
